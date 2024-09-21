@@ -1,0 +1,1 @@
+INSERT INTO accommodation (name, description, post_no, address1, address2, tel, created_date, MODIFIED_DATE) VALUES ('서울 게스트하우스', '서울 중심에 위치한 편안한 게스트하우스입니다.', '04524', '서울특별시 중구 세종대로 110', '101호', '02-123-4567', NOW(), NOW());
