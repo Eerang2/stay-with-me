@@ -19,4 +19,9 @@ public class AccommodationService {
         AccommodationEntity accommodationEntity = accommodationRepository.findAccommodationEntitiesById(id).orElseThrow(() -> new NoSuchAccommodation());
         return Accommodation.of(accommodationEntity);
     }
+
+    public void saveAccommodation(Accommodation accommodation) {
+        AccommodationEntity accommodationEntity = accommodation.toEntity();
+        accommodationRepository.save(accommodationEntity);
+    }
 }

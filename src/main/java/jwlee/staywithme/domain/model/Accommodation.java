@@ -1,7 +1,9 @@
 package jwlee.staywithme.domain.model;
 
+import jakarta.validation.constraints.NotNull;
 import jwlee.staywithme.domain.repository.entity.AccommodationEntity;
 import lombok.Builder;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 @Getter
@@ -17,9 +19,17 @@ public class Accommodation {
     }
 
     private long id;
+
+    @NotBlank(message = "업소이름은 필수압니다.")
     private String name;
+
+    @NotNull
     private String description;
+
+    @NotNull
     private AccAddress address;
+
+    @NotNull
     private String tel;
 
     public static Accommodation of(AccommodationEntity entity) {
@@ -34,6 +44,20 @@ public class Accommodation {
                                 .address2(entity.getAddress2())
                                 .build()
                 )
+                .tel(entity.getTel())
+                .build();
+    }
+
+    public AccommodationEntity toEntity() {
+        return AccommodationEntity.builder()
+                .id(this.id)
+                .name(this.name)
+                .description(this.description)
+                .postNo(this.address.getPostNo())
+                .address1(this.address.getAddress1())
+                .address2(this.address.getAddress2())
+                .tel(this.tel)
                 .build();
     }
 }
+
