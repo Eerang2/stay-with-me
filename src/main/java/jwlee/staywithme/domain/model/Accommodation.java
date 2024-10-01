@@ -1,38 +1,30 @@
 package jwlee.staywithme.domain.model;
 
-import jakarta.validation.constraints.NotNull;
 import jwlee.staywithme.domain.repository.entity.AccommodationEntity;
 import lombok.Builder;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class Accommodation {
-
-    @Builder
-    public Accommodation(long id, String name, String description, AccAddress address, String tel) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.address = address;
-        this.tel = tel;
-    }
 
     private long id;
 
-    @NotBlank(message = "업소이름은 필수압니다.")
     private String name;
 
-    @NotNull
     private String description;
 
-    @NotNull
+    private String usageGuide; // 이용안내
+
+    private String reservationGuide;
+
     private AccAddress address;
 
-    @NotNull
+    private GeoLocation geoLocation;
+
     private String tel;
 
-    public static Accommodation of(AccommodationEntity entity) {
+    public static Accommodation from(AccommodationEntity entity) {
         return Accommodation.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -44,6 +36,7 @@ public class Accommodation {
                                 .address2(entity.getAddress2())
                                 .build()
                 )
+                .geoLocation(new GeoLocation(entity.getLatitude(), entity.getLongitude()))
                 .tel(entity.getTel())
                 .build();
     }

@@ -17,11 +17,13 @@ public class AccommodationService {
 
     public Accommodation getAccommodationById(long id) {
         AccommodationEntity accommodationEntity = accommodationRepository.findAccommodationEntitiesById(id).orElseThrow(() -> new NoSuchAccommodation());
-        return Accommodation.of(accommodationEntity);
+        return Accommodation.from(accommodationEntity);
     }
 
-    public void saveAccommodation(Accommodation accommodation) {
+    public Accommodation create(Accommodation accommodation) {
         AccommodationEntity accommodationEntity = accommodation.toEntity();
-        accommodationRepository.save(accommodationEntity);
+        AccommodationEntity createdAccommodationEntity = accommodationRepository.save(accommodationEntity);
+        Accommodation createdAccommodation = Accommodation.from(createdAccommodationEntity);
+        return createdAccommodation;
     }
 }

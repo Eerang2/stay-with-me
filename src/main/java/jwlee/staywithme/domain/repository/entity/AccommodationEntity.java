@@ -3,14 +3,15 @@ package jwlee.staywithme.domain.repository.entity;
 
 import jakarta.persistence.*;
 import jwlee.staywithme.domain.repository.BaseTimeEntity;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "accommodation")
 @Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class AccommodationEntity extends BaseTimeEntity {
 
     @Id
@@ -33,18 +34,14 @@ public class AccommodationEntity extends BaseTimeEntity {
     @Column(nullable = false, length = 100)
     private String address2;
 
+    private double latitude;
+
+    private double longitude;
+
+    private String usageGuide; // 이용안내
+
+    private String reservationGuide;
+
     @Column(nullable = false, length = 15)
     private String tel;
-
-
-    @Builder
-    public AccommodationEntity (Long id, String name, String description, String postNo, String address1, String address2, String tel) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.postNo = postNo;
-        this.address1 = address1;
-        this.address2 = address2;
-        this.tel = tel;
-    }
 }
