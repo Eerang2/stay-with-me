@@ -11,7 +11,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)
+@ToString
 public class AccommodationEntity extends BaseTimeEntity {
 
     @Id
@@ -38,8 +39,10 @@ public class AccommodationEntity extends BaseTimeEntity {
 
     private double longitude;
 
+    @Column(nullable = false, length = 500)
     private String usageGuide; // 이용안내
 
+    @Column(nullable = false, length = 500)
     private String reservationGuide;
 
     @Column(nullable = false, length = 15)

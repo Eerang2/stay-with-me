@@ -26,4 +26,11 @@ public class AccommodationService {
         Accommodation createdAccommodation = Accommodation.from(createdAccommodationEntity);
         return createdAccommodation;
     }
+
+    public Accommodation update(Accommodation accommodation) {
+        AccommodationEntity accommodationEntity = accommodation.toEntity();
+        AccommodationEntity updatedAccommodationEntity = accommodationRepository.save(accommodationEntity);
+        Accommodation update = Accommodation.from(updatedAccommodationEntity);
+        return update;
+    }
 }
