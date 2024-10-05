@@ -17,7 +17,7 @@ public class AccommodationEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "acc_no")
+    @Column(name = "acmd_no")
     private Long id;
 
     @Column(nullable = false, length = 50)

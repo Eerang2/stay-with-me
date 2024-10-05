@@ -10,3 +10,21 @@ INSERT INTO accommodation (name, description, post_no, address1, address2, latit
                            reservation_guide, tel, created_date, modified_date)
 VALUES ('도심 비즈니스 호텔', '편리한 교통과 다양한 편의시설을 갖춘 숙소입니다.', '98765', '도심대로 789', '5층', 37.98765, 126.98765,
         '체크인 14시, 체크아웃 12시', '웹사이트를 통해 예약 가능', '010-1122-3344', '2024-09-29 10:10:00', '2024-09-29 10:10:00');
+
+
+INSERT INTO IMAGE (image_type, path, acmd_no)
+VALUES ('MAIN', 'images/accommodation1/main.jpg', 1);
+INSERT INTO IMAGE (image_type, path, acmd_no)
+VALUES ('THUMBNAIL', 'images/accommodation1/thumbnail.jpg', 1);
+INSERT INTO IMAGE (image_type, path, acmd_no)
+VALUES ('DETAIL', 'images/accommodation1/detail.jpg', 1);
+INSERT INTO IMAGE (image_type, path, acmd_no)
+VALUES ('LOCATION', 'images/accommodation1/location.jpg', 1);
+INSERT INTO IMAGE (image_type, path, acmd_no)
+VALUES ('MAIN', 'images/accommodation1/main.jpg', 2);
+INSERT INTO IMAGE (image_type, path, acmd_no)
+VALUES ('THUMBNAIL', 'images/accommodation1/thumbnail.jpg', 2);
+INSERT INTO IMAGE (image_type, path, acmd_no)
+VALUES ('DETAIL', 'images/accommodation1/detail.jpg', 2);
+INSERT INTO IMAGE (image_type, path, acmd_no)
+VALUES ('LOCATION', 'images/accommodation1/location.jpg', 2);
