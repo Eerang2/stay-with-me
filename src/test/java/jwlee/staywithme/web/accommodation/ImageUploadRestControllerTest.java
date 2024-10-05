@@ -2,10 +2,15 @@ package jwlee.staywithme.web.accommodation;
 
 import jakarta.transaction.Transactional;
 import jwlee.staywithme.BaseMockMvcTest;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,5 +32,19 @@ class ImageUploadRestControllerTest extends BaseMockMvcTest {
                                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 )
                 .andExpect(status().isOk());
+    }
+
+    @AfterAll
+    static void cleanUpAll() throws Exception {
+        Path tempDirectory = Paths.get(TEMP_PATH);
+        if (Files.exists(tempDirectory)) {
+            Files.walk(tempDirectory)
+                    .map(Path::toFile)
+                    .forEach(file -> {
+                        if (!file.delete()) {
+                            System.out.println("delete file : " + file);
+                        }
+                    });
+        }
     }
 }
