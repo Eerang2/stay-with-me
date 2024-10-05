@@ -96,13 +96,4 @@ class AccommodationRestControllerTest extends BaseMockMvcTest {
         AccommodationEntity entity = accommodationRepository.findAccommodationEntitiesById(1L).get();
         assertEquals("서울 게스트하우스", entity.getName());
     }
-
-    @Test
-    void updateName() {
-        AccommodationEntity entity = accommodationRepository.findById(1L).get();
-
-        entity.setName("롯데호텔");
-
-        accommodationRepository.save(entity);
-    }
 }

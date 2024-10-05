@@ -17,7 +17,7 @@ public class AccommodationRestController {
     private final AccommodationService accommodationService;
 
     @GetMapping("/{id}")
-    public Accommodation getById(@PathVariable("id") long id) {
+    public Accommodation getById(@PathVariable long id) {
         return accommodationService.getAccommodationById(id);
     }
 
@@ -28,10 +28,9 @@ public class AccommodationRestController {
         return createdAccommodation;
     }
 
-    @PostMapping("/update")
-    public Accommodation update(@RequestBody @Valid Accommodation accommodationReq) {
+    @PostMapping("/update/{id}")
+    public Accommodation update(@PathVariable long id, @RequestBody @Valid Accommodation accommodationReq) {
         log.info("accommodation: {}", accommodationReq);
-//        return accommodationService.updateAccommodation(accommodationReq);
-        return null;
+        return accommodationService.update(accommodationReq, id);
     }
 }

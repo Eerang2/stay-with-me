@@ -48,3 +48,5 @@ public class AccommodationEntity extends BaseTimeEntity {
     @Column(nullable = false, length = 15)
     private String tel;
 }
+
+

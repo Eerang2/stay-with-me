@@ -27,9 +27,28 @@ public class AccommodationService {
         return createdAccommodation;
     }
 
-    public Accommodation update(Accommodation accommodation) {
-        AccommodationEntity accommodationEntity = accommodation.toEntity();
-        AccommodationEntity updatedAccommodationEntity = accommodationRepository.save(accommodationEntity);
+    public Accommodation update(Accommodation accommodation, long id) {
+        // 업소 꺼내기
+        AccommodationEntity entity = accommodationRepository.findAccommodationEntitiesById(id)
+                .orElseThrow(() -> new NoSuchAccommodation());
+
+        entity.toBuilder()
+                .name(accommodation.getName())
+                .description(accommodation.getDescription())
+                .tel(accommodation.getTel())
+                .postNo(accommodation.getAddress().getPostNo())
+                .address1(accommodation.getAddress().getAddress1())
+                .address2(accommodation.getAddress().getAddress2())
+                .longitude(accommodation.getGeoLocation().getLongitude())
+                .latitude(accommodation.getGeoLocation().getLatitude())
+                .usageGuide(accommodation.getUsageGuide())
+                .reservationGuide(accommodation.getReservationGuide())
+                .build();
+
+        // save
+        AccommodationEntity updatedAccommodationEntity = accommodationRepository.save(entity);
+
+        // 캐스팅
         Accommodation update = Accommodation.from(updatedAccommodationEntity);
         return update;
     }
