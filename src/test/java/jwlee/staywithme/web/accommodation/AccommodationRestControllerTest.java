@@ -3,9 +3,11 @@ package jwlee.staywithme.web.accommodation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import jwlee.staywithme.BaseMockMvcTest;
-import jwlee.staywithme.domain.model.AccAddress;
+import jwlee.staywithme.domain.enums.AccommodationType;
+import jwlee.staywithme.domain.enums.ParkingType;
 import jwlee.staywithme.domain.model.Accommodation;
 import jwlee.staywithme.domain.model.GeoLocation;
+import jwlee.staywithme.domain.model.ParkingInfo;
 import jwlee.staywithme.domain.repository.AccommodationRepository;
 import jwlee.staywithme.domain.repository.entity.AccommodationEntity;
 import org.junit.jupiter.api.DisplayName;
@@ -49,10 +51,10 @@ class AccommodationRestControllerTest extends BaseMockMvcTest {
                 Accommodation.builder()
                         .name("신라호텔")
                         .description("5성급 최고급 호텔")
-                        .address(new AccAddress("124532", "서울시 강동구", "동성로 125번길"))
                         .geoLocation(new GeoLocation(123.123, 10.10))
-                        .usageGuide("깨끗이 쓰세요")
-                        .reservationGuide("예약 후에 문자 드려요")
+                        .type(AccommodationType.HOTEL)
+                        .parkingInfo(new ParkingInfo(true, ParkingType.MACHINE))
+                        .locationGuideText("예약 후에 문자 드려요")
                         .tel("010-1234-5678")
                         .build()
         );
@@ -76,7 +78,6 @@ class AccommodationRestControllerTest extends BaseMockMvcTest {
                 Accommodation.builder()
                         .name("")
                         .description("5성급 최고급 호텔")
-                        .address(new AccAddress("124532", "서울시 강동구", "동성로 125번길"))
                         .tel("010-1234-5678")
                         .build()
         );

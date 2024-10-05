@@ -2,7 +2,8 @@ package jwlee.staywithme.domain.repository.entity;
 
 
 import jakarta.persistence.*;
-import jwlee.staywithme.domain.repository.BaseTimeEntity;
+import jwlee.staywithme.domain.enums.AccommodationType;
+import jwlee.staywithme.domain.enums.ParkingType;
 import lombok.*;
 
 @Entity
@@ -13,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @ToString
-public class AccommodationEntity extends BaseTimeEntity {
+public class AccommodationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,24 +27,22 @@ public class AccommodationEntity extends BaseTimeEntity {
     @Column(nullable = false, length = 500)
     private String description;
 
-    @Column(nullable = false, length = 6)
-    private String postNo;
-
-    @Column(nullable = false, length = 100)
-    private String address1;
-
-    @Column(nullable = false, length = 100)
-    private String address2;
-
     private double latitude;
 
     private double longitude;
 
-    @Column(nullable = false, length = 500)
-    private String usageGuide; // 이용안내
+    @Column(nullable = false)
+    private String locationGuideText;
 
-    @Column(nullable = false, length = 500)
-    private String reservationGuide;
+    @Column(nullable = false)
+    private boolean isFreeParking;
+
+    @Enumerated(EnumType.STRING)
+    private ParkingType parkingType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AccommodationType type;
 
     @Column(nullable = false, length = 15)
     private String tel;

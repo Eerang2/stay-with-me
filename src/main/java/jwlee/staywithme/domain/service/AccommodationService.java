@@ -36,13 +36,8 @@ public class AccommodationService {
                 .name(accommodation.getName())
                 .description(accommodation.getDescription())
                 .tel(accommodation.getTel())
-                .postNo(accommodation.getAddress().getPostNo())
-                .address1(accommodation.getAddress().getAddress1())
-                .address2(accommodation.getAddress().getAddress2())
                 .longitude(accommodation.getGeoLocation().getLongitude())
                 .latitude(accommodation.getGeoLocation().getLatitude())
-                .usageGuide(accommodation.getUsageGuide())
-                .reservationGuide(accommodation.getReservationGuide())
                 .build();
 
         // save

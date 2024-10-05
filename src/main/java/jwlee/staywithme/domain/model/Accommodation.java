@@ -1,11 +1,16 @@
 package jwlee.staywithme.domain.model;
 
+import jwlee.staywithme.domain.enums.AccommodationType;
 import jwlee.staywithme.domain.repository.entity.AccommodationEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Accommodation {
 
     private long id;
@@ -14,13 +19,14 @@ public class Accommodation {
 
     private String description;
 
-    private String usageGuide; // 이용안내
-
-    private String reservationGuide;
-
-    private AccAddress address;
+    private String locationGuideText;
 
     private GeoLocation geoLocation;
+
+    private ParkingInfo parkingInfo;
+
+
+    private AccommodationType type;
 
     private String tel;
 
@@ -29,14 +35,10 @@ public class Accommodation {
                 .id(entity.getId())
                 .name(entity.getName())
                 .description(entity.getDescription())
-                .address(
-                        AccAddress.builder()
-                                .postNo(entity.getPostNo())
-                                .address1(entity.getAddress1())
-                                .address2(entity.getAddress2())
-                                .build()
-                )
+                .parkingInfo(new ParkingInfo(entity.isFreeParking(), entity.getParkingType()))
                 .geoLocation(new GeoLocation(entity.getLatitude(), entity.getLongitude()))
+                .type(entity.getType())
+                .locationGuideText(entity.getLocationGuideText())
                 .tel(entity.getTel())
                 .build();
     }
@@ -46,9 +48,10 @@ public class Accommodation {
                 .id(this.id)
                 .name(this.name)
                 .description(this.description)
-                .postNo(this.address.getPostNo())
-                .address1(this.address.getAddress1())
-                .address2(this.address.getAddress2())
+                .isFreeParking(this.parkingInfo.getIsFree())
+                .parkingType(this.parkingInfo.getParkingType())
+                .locationGuideText(this.locationGuideText)
+                .type(this.type)
                 .tel(this.tel)
                 .build();
     }
