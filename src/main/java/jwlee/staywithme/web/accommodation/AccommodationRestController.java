@@ -23,14 +23,16 @@ public class AccommodationRestController {
 
     @PostMapping("/create")
     public Accommodation create(@RequestBody @Valid AccommodationReq.Create accommodationReqCreate) {
-        Accommodation accommodation = accommodationReqCreate.toAccommodation();
-        Accommodation createdAccommodation = accommodationService.create(accommodation);
-        return createdAccommodation;
+//        Accommodation accommodation = accommodationReqCreate.toAccommodation();
+//        Accommodation createdAccommodation = accommodationService.create(accommodation);
+        return null;
     }
 
     @PostMapping("/update/{id}")
     public Accommodation update(@PathVariable long id, @RequestBody @Valid Accommodation accommodationReq) {
         log.info("accommodation: {}", accommodationReq);
-        return accommodationService.update(accommodationReq, id);
+//        return accommodationService.update(accommodationReq, id);
+        return null;
     }
+
 }

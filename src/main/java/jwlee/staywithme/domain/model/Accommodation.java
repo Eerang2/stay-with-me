@@ -1,11 +1,9 @@
 package jwlee.staywithme.domain.model;
 
+import jwlee.staywithme.domain.enums.AccommodationStatus;
 import jwlee.staywithme.domain.enums.AccommodationType;
 import jwlee.staywithme.domain.repository.entity.AccommodationEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Builder
@@ -25,12 +23,16 @@ public class Accommodation {
 
     private ParkingInfo parkingInfo;
 
+    private AccommodationStatus status;
 
     private AccommodationType type;
 
     private String tel;
 
-    public static Accommodation from(AccommodationEntity entity) {
+    @Setter
+    private String mainImagePath;
+
+    public static Accommodation from(AccommodationEntity entity, String mainImagePath) {
         return Accommodation.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -40,6 +42,7 @@ public class Accommodation {
                 .type(entity.getType())
                 .locationGuideText(entity.getLocationGuideText())
                 .tel(entity.getTel())
+                .mainImagePath(mainImagePath)
                 .build();
     }
 

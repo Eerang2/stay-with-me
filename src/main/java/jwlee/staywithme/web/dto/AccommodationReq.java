@@ -2,6 +2,7 @@ package jwlee.staywithme.web.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jwlee.staywithme.domain.enums.AccommodationStatus;
 import jwlee.staywithme.domain.enums.AccommodationType;
 import jwlee.staywithme.domain.model.AccAddress;
 import jwlee.staywithme.domain.model.Accommodation;
@@ -23,10 +24,21 @@ public class AccommodationReq {
 
         @NotBlank
         private String description;
-        private String locationGuideText;
+
+        @NotNull
         private ParkingInfo parkingInfo;
+
+        @NotNull
         private AccommodationType type;
+
+        @NotNull
+        private AccommodationStatus status;
+
+        @NotNull
         private GeoLocation geoLocation;
+
+        private String locationGuideText;
+
         private String tel;
 
         public Accommodation toAccommodation() {
@@ -36,6 +48,7 @@ public class AccommodationReq {
                     .geoLocation(this.geoLocation)
                     .type(this.type)
                     .locationGuideText(this.locationGuideText)
+                    .status(AccommodationStatus.AVAILABLE)
                     .parkingInfo(this.parkingInfo)
                     .tel(this.tel)
                     .build();
