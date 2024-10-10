@@ -1,7 +1,7 @@
 package jwlee.staywithme.domain.service;
 
+import jakarta.transaction.Transactional;
 import jwlee.staywithme.domain.enums.ImageType;
-import jwlee.staywithme.domain.exceptions.NoSuchAccommodation;
 import jwlee.staywithme.domain.exceptions.NotfoundImageException;
 import jwlee.staywithme.domain.model.Accommodation;
 import jwlee.staywithme.domain.model.AccommodationImage;
@@ -11,6 +11,7 @@ import jwlee.staywithme.domain.repository.entity.AccommodationEntity;
 import jwlee.staywithme.domain.repository.entity.ImageEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +25,14 @@ public class AccommodationService {
     private final AccommodationRepository accommodationRepository;
     private final ImageRepository imageRepository;
 
-    public Accommodation getAccommodationById(long id) {
-        AccommodationEntity accommodationEntity = accommodationRepository.findAccommodationEntitiesById(id).orElseThrow(() -> new NoSuchAccommodation());
+    @Transactional
+    @Cacheable(cacheNames = "accommodation", key = "#id", cacheManager = "accommodationCacheManager", condition = "#id > 0")
+    public Accommodation findAccommodationById(long id) {
+        AccommodationEntity accommodationEntity = accommodationRepository.findAccommodationEntitiesById(id).orElseThrow(NotfoundImageException::new);
         ImageEntity imageEntity = imageRepository.findByAccommodationIdAndImageType(id, ImageType.MAIN).orElseThrow(NotfoundImageException::new);
         return Accommodation.from(accommodationEntity, imageEntity.getPath());
     }
+
 //
 //    public Accommodation update(Accommodation accommodation, long id) {
 //        // 업소 꺼내기
@@ -51,6 +55,7 @@ public class AccommodationService {
 //        return update;
 //    }
 
+    @Transactional
     public Accommodation create(Accommodation accommodation, List<AccommodationImage> imageList) {
         AccommodationEntity saveAccommodationEntity = accommodationRepository.save(accommodation.toEntity());
         long newAccommodationId = saveAccommodationEntity.getId();

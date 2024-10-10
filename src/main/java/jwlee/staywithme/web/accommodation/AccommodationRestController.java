@@ -18,7 +18,7 @@ public class AccommodationRestController {
 
     @GetMapping("/{id}")
     public Accommodation getById(@PathVariable long id) {
-        return accommodationService.getAccommodationById(id);
+        return accommodationService.findAccommodationById(id);
     }
 
     @PostMapping("/create")
