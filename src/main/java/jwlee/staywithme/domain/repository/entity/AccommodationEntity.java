@@ -43,9 +43,6 @@ public class AccommodationEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AccommodationType type;
-
-    @Column(nullable = false, length = 15)
-    private String tel;
 }
 
 
