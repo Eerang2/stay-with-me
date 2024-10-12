@@ -50,7 +50,6 @@ public class AccommodationReq {
                     .locationGuideText(this.locationGuideText)
                     .status(AccommodationStatus.AVAILABLE)
                     .parkingInfo(this.parkingInfo)
-                    .tel(this.tel)
                     .build();
         }
 

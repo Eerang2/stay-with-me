@@ -1,6 +1,6 @@
 package jwlee.staywithme.domain.service;
 
-import jwlee.staywithme.BaseTest;
+import jwlee.staywithme.BaseRedisTest;
 import jwlee.staywithme.domain.enums.AccommodationStatus;
 import jwlee.staywithme.domain.enums.AccommodationType;
 import jwlee.staywithme.domain.enums.ImageType;
@@ -19,7 +19,7 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-class AccommodationServiceTest extends BaseTest {
+class AccommodationServiceTest extends BaseRedisTest {
 
     @Autowired
     private AccommodationService accommodationService;
@@ -44,13 +44,13 @@ class AccommodationServiceTest extends BaseTest {
                 .status(AccommodationStatus.AVAILABLE)
                 .parkingInfo(new ParkingInfo(true, ParkingType.MACHINE))
                 .locationGuideText("예약 후에 문자 드려요")
-                .tel("010-1234-5678")
                 .build();
         Accommodation saved = accommodationService.create(accommodation, Arrays.asList(
                 AccommodationImage.builder().imageType(ImageType.MAIN).path("/img/test1.jpg").build()
                 , AccommodationImage.builder().imageType(ImageType.DETAIL).path("/img/test2.jpg").build()
                 , AccommodationImage.builder().imageType(ImageType.THUMBNAIL).path("/img/test3.jpg").build()
         ));
+        assertThat(saved).isNotNull();
     }
 
     @Test

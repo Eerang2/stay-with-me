@@ -27,8 +27,6 @@ public class Accommodation {
 
     private AccommodationType type;
 
-    private String tel;
-
     @Setter
     private String mainImagePath;
 
@@ -41,7 +39,6 @@ public class Accommodation {
                 .geoLocation(new GeoLocation(entity.getLatitude(), entity.getLongitude()))
                 .type(entity.getType())
                 .locationGuideText(entity.getLocationGuideText())
-                .tel(entity.getTel())
                 .mainImagePath(mainImagePath)
                 .build();
     }
@@ -55,7 +52,6 @@ public class Accommodation {
                 .parkingType(this.parkingInfo.getParkingType())
                 .locationGuideText(this.locationGuideText)
                 .type(this.type)
-                .tel(this.tel)
                 .build();
     }
 }

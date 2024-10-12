@@ -35,7 +35,7 @@ class AccommodationRestControllerTest extends BaseMockMvcTest {
 
         // then
         actions.andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("서울 게스트하우스"));
+                .andExpect(jsonPath("$.name").value("서울 호텔"));
     }
 
     @Autowired
@@ -57,7 +57,6 @@ class AccommodationRestControllerTest extends BaseMockMvcTest {
                         .status(AccommodationStatus.AVAILABLE)
                         .parkingInfo(new ParkingInfo(true, ParkingType.MACHINE))
                         .locationGuideText("예약 후에 문자 드려요")
-                        .tel("010-1234-5678")
                         .build()
         );
 
@@ -80,7 +79,6 @@ class AccommodationRestControllerTest extends BaseMockMvcTest {
                 Accommodation.builder()
                         .name("")
                         .description("5성급 최고급 호텔")
-                        .tel("010-1234-5678")
                         .build()
         );
 
@@ -97,6 +95,6 @@ class AccommodationRestControllerTest extends BaseMockMvcTest {
     @DisplayName("findAccById 로 API 조회")
     void jpaGetName() {
         AccommodationEntity entity = accommodationRepository.findAccommodationEntitiesById(1L).get();
-        assertEquals("서울 게스트하우스", entity.getName());
+        assertEquals("서울 호텔", entity.getName());
     }
 }
