@@ -4,20 +4,19 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jwlee.staywithme.domain.enums.AccommodationStatus;
 import jwlee.staywithme.domain.enums.AccommodationType;
+import jwlee.staywithme.domain.enums.ImageType;
 import jwlee.staywithme.domain.model.AccAddress;
-import jwlee.staywithme.domain.model.Accommodation;
 import jwlee.staywithme.domain.model.GeoLocation;
 import jwlee.staywithme.domain.model.ParkingInfo;
+import jwlee.staywithme.web.validators.ValidAccommodationImage;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 public class AccommodationReq {
 
     @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
     public static class Create {
         @NotBlank(message = "숙소명은 필수값입니다")
         private String name;
@@ -31,7 +30,6 @@ public class AccommodationReq {
         @NotNull
         private AccommodationType type;
 
-        @NotNull
         private AccommodationStatus status;
 
         @NotNull
@@ -39,20 +37,32 @@ public class AccommodationReq {
 
         private String locationGuideText;
 
-        private String tel;
+        @NotNull
+        @ValidAccommodationImage
+        private List<ImageOnCreate> imageList;
 
-        public Accommodation toAccommodation() {
-            return Accommodation.builder()
-                    .name(this.name)
-                    .description(this.description)
-                    .geoLocation(this.geoLocation)
-                    .type(this.type)
-                    .locationGuideText(this.locationGuideText)
-                    .status(AccommodationStatus.AVAILABLE)
-                    .parkingInfo(this.parkingInfo)
-                    .build();
+        @Builder
+        public Create(String name, String description, ParkingInfo parkingInfo, AccommodationType type, AccommodationStatus status, GeoLocation geoLocation, String locationGuideText, List<ImageOnCreate> imageList) {
+            this.name = name;
+            this.description = description;
+            this.parkingInfo = parkingInfo;
+            this.type = type;
+            this.status = status;
+            this.geoLocation = geoLocation;
+            this.locationGuideText = locationGuideText;
+            this.imageList = imageList;
         }
+    }
+    @Getter
+    public static class ImageOnCreate {
+        private ImageType imageType;
+        private String path;
 
+        @Builder
+        public ImageOnCreate(ImageType imageType, String path) {
+            this.imageType = imageType;
+            this.path = path;
+        }
     }
 
     @Getter

@@ -23,7 +23,15 @@ public class AccommodationRestController {
 
     @PostMapping("/create")
     public Accommodation create(@RequestBody @Valid AccommodationReq.Create accommodationReqCreate) {
-//        Accommodation accommodation = accommodationReqCreate.toAccommodation();
+//        Accommodation accommodation = Accommodation.builder()
+//                .name(accommodationReqCreate.getName())
+//                .description(accommodationReqCreate.getDescription())
+//                .type(accommodationReqCreate.getType())
+//                .parkingInfo(new ParkingInfo(accommodationReqCreate.getParkingInfo().getIsFree(), accommodationReqCreate.getParkingInfo().getParkingType()))
+//                .geoLocation(new GeoLocation(accommodationReqCreate.getGeoLocation().getLatitude(), accommodationReqCreate.getGeoLocation().getLongitude()))
+//                .locationGuideText(accommodationReqCreate.getLocationGuideText())
+//                .description(accommodationReqCreate.getDescription())
+//                .build();
 //        Accommodation createdAccommodation = accommodationService.create(accommodation);
         return null;
     }
