@@ -11,7 +11,6 @@ import jwlee.staywithme.domain.model.Accommodation;
 import jwlee.staywithme.domain.model.GeoLocation;
 import jwlee.staywithme.domain.model.ParkingInfo;
 import jwlee.staywithme.domain.repository.AccommodationRepository;
-import jwlee.staywithme.domain.repository.entity.AccommodationEntity;
 import jwlee.staywithme.web.dto.AccommodationReq;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -35,13 +33,26 @@ class AccommodationRestControllerTest extends BaseMockMvcTest {
     private static final String CREATE_POST_PATH = "/api/accommodation/create";
 
     @Test
-    void 숙소조회API테스트() throws Exception {
+    @DisplayName("숙소조회 API 테스트")
+    void findAccommodation() throws Exception {
         final ResultActions actions = mockMvc.perform(get("/api/accommodation/1").contentType(MediaType.APPLICATION_JSON));
 
         // then
         actions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("서울 호텔"));
     }
+
+    @Test
+    @DisplayName("없는 숙소 조회")
+    void noAccommodation() throws Exception {
+        final ResultActions resultActions = this.mockMvc.perform(
+                get("/api/accommodation/0")
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+        resultActions.andExpect(status().isBadRequest());
+    }
+
+
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -99,13 +110,6 @@ class AccommodationRestControllerTest extends BaseMockMvcTest {
         );
 
         resultActions.andExpect(status().isBadRequest());
-    }
-
-    @Test
-    @DisplayName("findAccById 로 API 조회")
-    void jpaGetName() {
-        AccommodationEntity entity = accommodationRepository.findAccommodationEntitiesById(1L).get();
-        assertEquals("서울 호텔", entity.getName());
     }
 
     @Test

@@ -9,6 +9,8 @@ import jwlee.staywithme.domain.model.Accommodation;
 import jwlee.staywithme.domain.model.AccommodationImage;
 import jwlee.staywithme.domain.model.GeoLocation;
 import jwlee.staywithme.domain.model.ParkingInfo;
+import jwlee.staywithme.domain.repository.AccommodationRepository;
+import jwlee.staywithme.domain.repository.entity.AccommodationEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.cache.CacheManager;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class AccommodationServiceTest extends BaseRedisTest {
@@ -25,12 +28,22 @@ class AccommodationServiceTest extends BaseRedisTest {
     private AccommodationService accommodationService;
 
     @Autowired
+    private AccommodationRepository accommodationRepository;
+
+    @Autowired
     private CacheManager cacheManager;
 
     @Test
     void 숙소조회() {
         Accommodation accommodation = accommodationService.findAccommodationById(1L);
         assertThat(accommodation).isNotNull();
+    }
+
+    @Test
+    @DisplayName("findAccById 로 API 조회")
+    void jpaGetName() {
+        AccommodationEntity entity = accommodationRepository.findAccommodationEntitiesById(1L).get();
+        assertEquals("서울 호텔", entity.getName());
     }
 
     @Test
