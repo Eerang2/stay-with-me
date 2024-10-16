@@ -38,7 +38,9 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     testImplementation "org.testcontainers:elasticsearch:1.20.2"
+    testImplementation "org.testcontainers:junit-jupiter:1.20.2"
     testImplementation "org.testcontainers:testcontainers:1.20.2"
+
 }
 
 tasks.named('test') {
