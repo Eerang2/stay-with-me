@@ -15,6 +15,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Slf4j
@@ -24,6 +26,8 @@ public class AccommodationService {
 
     private final AccommodationRepository accommodationRepository;
     private final ImageRepository imageRepository;
+
+    public static final String DEFAULT_MAIN_IMG = "/img/default_main_img.jpg";
 
     @Transactional
     @Cacheable(cacheNames = "accommodation", key = "#id", cacheManager = "accommodationCacheManager", condition = "#id > 0")
@@ -71,5 +75,25 @@ public class AccommodationService {
                 .findFirst().orElse("/img/default_main_image.jpg");
 
         return Accommodation.from(saveAccommodationEntity, mainImagePath);
+    }
+
+
+    @Transactional
+    public List<Accommodation> findAllByRegionId(long regionId) {
+        List<AccommodationEntity> accommodationEntities = accommodationRepository.findAllByRegionId(regionId);
+        List<Long> accommodationIdList = accommodationEntities.stream()
+                        .map(AccommodationEntity::getId)
+                        .toList();
+
+        Map<Long, String> mainImageMap = imageRepository.findAllByAccommodationIdInAndImageType(accommodationIdList, ImageType.MAIN)
+                .stream()
+                .collect(Collectors.toMap(ImageEntity::getAccommodationId, ImageEntity::getPath));
+
+        return accommodationEntities.stream()
+                .map(accommodationEntity -> {
+                        String mainImagePath = mainImageMap.getOrDefault(accommodationEntity.getId(), DEFAULT_MAIN_IMG);
+                        return Accommodation.from(accommodationEntity, mainImagePath);
+                })
+                .toList();
     }
 }

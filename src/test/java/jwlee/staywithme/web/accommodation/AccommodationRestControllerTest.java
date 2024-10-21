@@ -73,6 +73,7 @@ class AccommodationRestControllerTest extends BaseMockMvcTest {
                         .status(AccommodationStatus.AVAILABLE)
                         .parkingInfo(new ParkingInfo(true, ParkingType.MACHINE))
                         .locationGuideText("예약 후에 문자 드려요")
+                        .regionId(7L)
                         .imageList(Arrays.asList(
                                 AccommodationReq.ImageOnCreate.builder().imageType(ImageType.MAIN).path("/img/test1.jpg").build()
                                 ,AccommodationReq.ImageOnCreate.builder().imageType(ImageType.DETAIL).path("/img/test2.jpg").build()
@@ -86,7 +87,6 @@ class AccommodationRestControllerTest extends BaseMockMvcTest {
                 MockMvcRequestBuilders.post(CREATE_POST_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody)
-
         );
 
         // then
@@ -135,5 +135,16 @@ class AccommodationRestControllerTest extends BaseMockMvcTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody)
         ).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("지역번호로 숙소리스트 조회하기")
+    void accommodationList_from_regionNo() throws Exception {
+        final ResultActions resultActions = this.mockMvc.perform(
+                get("/api/accommodation")
+                        .param("regionId", String.valueOf(1))
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+        resultActions.andExpect(status().isOk());
     }
 }

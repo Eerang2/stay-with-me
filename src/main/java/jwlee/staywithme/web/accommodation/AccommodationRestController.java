@@ -39,4 +39,9 @@ public class AccommodationRestController {
         return null;
     }
 
+    @GetMapping
+    public List<Accommodation> getAccommodationByRegionId(@RequestParam("regionId") Long regionId) {
+        return accommodationService.findAllByRegionId(regionId);
+    }
+
 }
