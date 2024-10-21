@@ -2,11 +2,14 @@ package jwlee.staywithme.web.accommodation;
 
 import jakarta.validation.Valid;
 import jwlee.staywithme.domain.model.Accommodation;
+import jwlee.staywithme.domain.model.AccommodationImage;
 import jwlee.staywithme.domain.service.AccommodationService;
 import jwlee.staywithme.web.dto.AccommodationReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,18 +25,11 @@ public class AccommodationRestController {
     }
 
     @PostMapping("/create")
-    public Accommodation create(@RequestBody @Valid AccommodationReq.Create accommodationReqCreate) {
-//        Accommodation accommodation = Accommodation.builder()
-//                .name(accommodationReqCreate.getName())
-//                .description(accommodationReqCreate.getDescription())
-//                .type(accommodationReqCreate.getType())
-//                .parkingInfo(new ParkingInfo(accommodationReqCreate.getParkingInfo().getIsFree(), accommodationReqCreate.getParkingInfo().getParkingType()))
-//                .geoLocation(new GeoLocation(accommodationReqCreate.getGeoLocation().getLatitude(), accommodationReqCreate.getGeoLocation().getLongitude()))
-//                .locationGuideText(accommodationReqCreate.getLocationGuideText())
-//                .description(accommodationReqCreate.getDescription())
-//                .build();
-//        Accommodation createdAccommodation = accommodationService.create(accommodation);
-        return null;
+    public Accommodation createAccommodation(@RequestBody @Valid AccommodationReq.Create accommodationReqCreate) {
+        List<AccommodationImage> imageList = accommodationReqCreate.getImageList().stream()
+                .map(AccommodationReq.ImageOnCreate::toAccommodationImage)
+                .toList();
+        return accommodationService.create(accommodationReqCreate.toAccommodation(), imageList);
     }
 
     @PostMapping("/update/{id}")

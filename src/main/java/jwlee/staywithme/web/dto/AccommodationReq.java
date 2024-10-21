@@ -5,9 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jwlee.staywithme.domain.enums.AccommodationStatus;
 import jwlee.staywithme.domain.enums.AccommodationType;
 import jwlee.staywithme.domain.enums.ImageType;
-import jwlee.staywithme.domain.model.AccAddress;
-import jwlee.staywithme.domain.model.GeoLocation;
-import jwlee.staywithme.domain.model.ParkingInfo;
+import jwlee.staywithme.domain.model.*;
 import jwlee.staywithme.web.validators.ValidAccommodationImage;
 import lombok.*;
 
@@ -52,6 +50,19 @@ public class AccommodationReq {
             this.locationGuideText = locationGuideText;
             this.imageList = imageList;
         }
+
+        public Accommodation toAccommodation() {
+            return Accommodation.builder()
+                    .name(name)
+                    .description(description)
+                    .parkingInfo(parkingInfo)
+                    .type(type)
+                    .status(status)
+                    .geoLocation(geoLocation)
+                    .locationGuideText(locationGuideText)
+                    .parkingInfo(parkingInfo)
+                    .build();
+        }
     }
     @Getter
     public static class ImageOnCreate {
@@ -62,6 +73,12 @@ public class AccommodationReq {
         public ImageOnCreate(ImageType imageType, String path) {
             this.imageType = imageType;
             this.path = path;
+        }
+        public AccommodationImage toAccommodationImage() {
+            return AccommodationImage.builder()
+                    .imageType(imageType)
+                    .path(path)
+                    .build();
         }
     }
 
