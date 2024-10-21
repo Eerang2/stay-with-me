@@ -30,6 +30,8 @@ public class Accommodation {
     @Setter
     private String mainImagePath;
 
+    private Long region;
+
     public static Accommodation from(AccommodationEntity entity, String mainImagePath) {
         return Accommodation.builder()
                 .id(entity.getId())
@@ -40,6 +42,7 @@ public class Accommodation {
                 .type(entity.getType())
                 .locationGuideText(entity.getLocationGuideText())
                 .mainImagePath(mainImagePath)
+                .region(entity.getRegionId())
                 .build();
     }
 
@@ -52,6 +55,9 @@ public class Accommodation {
                 .parkingType(this.parkingInfo.getParkingType())
                 .locationGuideText(this.locationGuideText)
                 .type(this.type)
+                .longitude(this.getGeoLocation().getLongitude())
+                .latitude(this.getGeoLocation().getLatitude())
+                .regionId(this.region)
                 .build();
     }
 }

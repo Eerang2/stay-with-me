@@ -57,6 +57,7 @@ class AccommodationServiceTest extends BaseRedisTest {
                 .status(AccommodationStatus.AVAILABLE)
                 .parkingInfo(new ParkingInfo(true, ParkingType.MACHINE))
                 .locationGuideText("예약 후에 문자 드려요")
+                .region(7L)
                 .build();
         Accommodation saved = accommodationService.create(accommodation, Arrays.asList(
                 AccommodationImage.builder().imageType(ImageType.MAIN).path("/img/test1.jpg").build()

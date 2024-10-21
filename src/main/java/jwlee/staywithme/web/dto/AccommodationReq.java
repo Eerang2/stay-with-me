@@ -36,11 +36,14 @@ public class AccommodationReq {
         private String locationGuideText;
 
         @NotNull
+        private Long regionId;
+
+        @NotNull
         @ValidAccommodationImage
         private List<ImageOnCreate> imageList;
 
         @Builder
-        public Create(String name, String description, ParkingInfo parkingInfo, AccommodationType type, AccommodationStatus status, GeoLocation geoLocation, String locationGuideText, List<ImageOnCreate> imageList) {
+        public Create(String name, String description, ParkingInfo parkingInfo, AccommodationType type, AccommodationStatus status, GeoLocation geoLocation, String locationGuideText, List<ImageOnCreate> imageList, Long regionId) {
             this.name = name;
             this.description = description;
             this.parkingInfo = parkingInfo;
@@ -49,6 +52,7 @@ public class AccommodationReq {
             this.geoLocation = geoLocation;
             this.locationGuideText = locationGuideText;
             this.imageList = imageList;
+            this.regionId = regionId;
         }
 
         public Accommodation toAccommodation() {
@@ -61,6 +65,7 @@ public class AccommodationReq {
                     .geoLocation(geoLocation)
                     .locationGuideText(locationGuideText)
                     .parkingInfo(parkingInfo)
+                    .region(regionId)
                     .build();
         }
     }

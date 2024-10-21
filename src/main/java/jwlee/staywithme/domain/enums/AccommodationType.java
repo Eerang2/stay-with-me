@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum AccommodationType {
-    HOTEL("HOTEL"), MOTEL("MOTEL");
+    HOTEL("HOTEL"), MOTEL("MOTEL"), PENSION("PENSION");
     private String value;
 }

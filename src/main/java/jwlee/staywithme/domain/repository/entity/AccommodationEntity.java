@@ -31,7 +31,6 @@ public class AccommodationEntity {
 
     private double longitude;
 
-    @Column(nullable = false)
     private String locationGuideText;
 
     @Column(nullable = false)
@@ -43,6 +42,9 @@ public class AccommodationEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AccommodationType type;
+
+    @Column(name = "region_no", nullable = false)
+    private Long regionId;
 }
 
 

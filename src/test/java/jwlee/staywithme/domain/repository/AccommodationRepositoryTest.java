@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -41,4 +42,12 @@ class AccommodationRepositoryTest extends BaseJpaTest {
         Assertions.assertThat(saved.getName()).isEqualTo("무료 급식소");
         System.out.println("update = " + saved);
     }
+
+    @Test
+    @DisplayName("특정지역 숙소 가져오기")
+    void get_accommodation_from_region() {
+        List<AccommodationEntity> accommodationEntities = accommodationRepository.findAllByRegionId(1L);
+        Assertions.assertThat(accommodationEntities.size()).isEqualTo(2);
+    }
+
 }
