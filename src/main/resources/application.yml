@@ -1,15 +1,5 @@
 spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
-    username: sa
-    password:
-  sql:
-    init:
-      mode: always
-      platform: h2
   jpa:
-    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
       dialect: org.hibernate.dialect.H2Dialect
@@ -17,13 +7,24 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+    defer-datasource-initialization: true # https://chaewsscode.tistory.com/174, https://velog.io/@wlsh44/Spring-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%B4%88%EA%B8%B0%ED%99%94
+  sql:
+    init:
+      mode: embedded
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
   data:
     redis:
       host: localhost
       port: 6379
 #      password: 1234
-  h2:
-    console:
-      enabled: true
-
-
+  elasticsearch:
+    uris: http://localhost:9200

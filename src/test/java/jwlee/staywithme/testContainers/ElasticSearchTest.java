@@ -3,7 +3,7 @@ package jwlee.staywithme.testContainers;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.GetResponse;
 import co.elastic.clients.elasticsearch.core.IndexResponse;
-import jwlee.staywithme.BaseEsTest;
+import jwlee.staywithme.BaseTest;
 import jwlee.staywithme.domain.enums.AccommodationType;
 import jwlee.staywithme.domain.enums.ParkingType;
 import jwlee.staywithme.domain.model.Accommodation;
@@ -15,7 +15,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class ElasticSearchTest extends BaseEsTest {
+public class ElasticSearchTest extends BaseTest {
 
     public static final String INDEX_NAME = "accommodation";
 

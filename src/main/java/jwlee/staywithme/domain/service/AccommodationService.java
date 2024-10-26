@@ -11,6 +11,7 @@ import jwlee.staywithme.domain.repository.entity.AccommodationEntity;
 import jwlee.staywithme.domain.repository.entity.ImageEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class AccommodationService {
 
     private final AccommodationRepository accommodationRepository;
     private final ImageRepository imageRepository;
+    private final CacheManager cacheManager;
 
     public static final String DEFAULT_MAIN_IMG = "/img/default_main_img.jpg";
 
